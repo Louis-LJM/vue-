@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          指令：是特殊的html标签
+          v-text：类似于innerText，不识别标签，可以用插件表达式替代
+          v-html：类似于innerHTML，识别标签，需要解析标签时使用
+          永远不要将用户输入的内容作为v-html的值
+       -->
+    <div id="app">
+      <h2>这是内容：{{msg}}</h2>
+      <h2 v-text="msg">v-text</h2>
+      <h2 v-html="msg">v-html</h2>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: '<a href="http://www.baidu.com">我要去百度</a>',
+        },
+      });
+    </script>
+  </body>
+</html>

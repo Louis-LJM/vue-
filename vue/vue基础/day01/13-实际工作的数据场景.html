@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="item in students" :key="item.id">
+          名字：{{item.name}},年龄：{{item.age}},性别：{{item.gender}}
+        </li>
+      </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 如果是列表渲染(使用v-for时),vue推荐加上key属性，可以优化列表渲染的性能
+      // :key='唯一标识'  一般是id
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          students: [
+            { id: 1, name: "小红", age: 18, gender: "girl" },
+            { id: 2, name: "小黄", age: 18, gender: "girl" },
+            { id: 3, name: "小明", age: 17, gender: "boy" },
+            { id: 4, name: "小黑", age: 19, gender: "boy" },
+            { id: 5, name: "小赵", age: 21, gender: "girl" },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          v-if和v-show都是控制元素的显示和隐藏 true 显示  false隐藏
+          v-if的原理是动态的删除和创建元素
+          v-show的原理是控制元素的css样式display：none
+
+          使用场景：
+          1.如果频繁切换显示和隐藏用v-show  因为用v-if创建和删除比较消耗性能
+          2.如果某个元素要么显示要么隐藏  推荐用v-if
+            如果初始渲染条件为假, v-if是惰性的, 就不会创建元素
+            如果初始渲染条件为假, v-show, 还是会将元素创建出来, 然后控制display: none
+       -->
+    <div id="app">
+      <div v-if="isShow">我是v-if控制的</div>
+      <div v-show="isShow">我是v-show控制的</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          isShow: false,
+        },
+      });
+    </script>
+  </body>
+</html>

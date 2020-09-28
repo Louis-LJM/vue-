@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          v-on作用：注册事件
+          1.内联语句，将要指向的代码，直接写在 ''里面，好处：简洁简单，适合于特别简单的代码
+          v-on：事件名='要执行的代码'
+
+          2.指定成methods中的函数
+          v-on：事件名='methods中的函数'
+
+          3.指定成methods中的函数，并且传参
+          v-on：事件名='methods中的函数(参数1，参数2 ，参数3...)'
+
+          简写：v-on 可以简写 @
+          v-on：事件名 => @ 事件名
+
+          小结：v-on事件注册
+          1.@事件名='要执行的代码'
+          2.@事件名='methods中的函数'
+          3.@事件名='methods中的函数(参数1，参数2 )'
+       -->
+    <div id="app">
+      <button v-on:click="isShow = !isShow">控制h1的显示和隐藏</button>
+      <button v-on:click="fn1">控制h1的显示和隐藏</button>
+      <button v-on:click="fn2(100)">控制h1的显示和隐藏</button>
+
+      <hr />
+
+      <button @click="isShow = !isShow">@控制h1的显示和隐藏</button>
+      <button @click="fn2(50)">@控制h1的显示和隐藏</button>
+
+      <button @mouseenter="fn3">鼠标移入</button>
+      <h1 v-show="isShow">我是内容</h1>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          isShow: true,
+        },
+        methods: {
+          fn1() {
+            //   方法放到methods总，methods中的this，默认指向vm实例
+            // vm.isShow = !vm.isShow;
+            this.isShow = !this.isShow;
+          },
+          fn2(num) {
+            console.log(num);
+            console.log("这是fn2");
+          },
+          fn3() {
+            alert("sorry");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

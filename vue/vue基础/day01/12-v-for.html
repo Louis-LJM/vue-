@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          for作用：遍历数组或者对象
+          需要重复渲染谁，就给谁加v-for
+          1.遍历数组（常用）
+          v-for='item in 数组名'           item遍历的每一项
+          v-for='（item，index） in 数组名'  index是下标
+
+          2.遍历对象（不常用）
+          v-for='（value，prop） in 对象名'   prop属性名  value属性值 
+
+       -->
+    <div id="app">
+      <ul>
+        <li v-for="item in list">{{item}}</li>
+      </ul>
+
+      <hr />
+
+      <ul>
+        <li v-for="(item,index) in list">下标{{index}} {{item}}</li>
+      </ul>
+
+      <hr />
+      <ul>
+        <li v-for="(value,prop) in list2">{{prop}}:{{value}}</li>
+      </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          list: ["刘备", "关羽", "张飞", "吕布"],
+          list2: {
+            name: "如花",
+            age: 18,
+            desc: "hot",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
