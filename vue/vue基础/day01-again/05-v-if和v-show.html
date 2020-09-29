@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          v-if 和 v-show 都是控制元素的显示和隐藏的  都是有布尔值控制的
+          v-if的原理是动态的删除和创建元素  比较消耗性能 建议不是频繁切换的元素使用
+          v-show的原理就是控制元素的css的display：none来控制显示和隐藏  没那么消耗性能
+               所以频繁使用建议用v-show
+       -->
+    <div id="app">
+      <p v-if="isShow">我是v-if</p>
+      <p v-show="isShow">我是v-show</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          isShow: true,
+        },
+      });
+    </script>
+  </body>
+</html>

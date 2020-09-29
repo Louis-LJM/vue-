@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <a @click.prevent="fn('一刀999999')" href="http://www.baidu.com"
+        >百度吧</a
+      >
+      <a @click.stop.prevent="fn(8888)" href="http://www.taobao.com">淘宝吧</a>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        methods: {
+          fn(num) {
+            console.log(num);
+            // e.preventDefault();
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

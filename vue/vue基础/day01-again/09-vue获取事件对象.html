@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          a标签会跳转，不希望他跳 可以阻止他的默认行为
+          e.preventDefault()
+          e.stopPropagation()
+
+          vue获取事件对象
+          1.注册事件没有传参  @事件名=’fn‘  直接通过传参  即可获取
+          2.注册事件传参了  @事件名='fn(参数,$event)',需要通过$event  获取e
+          
+       -->
+    <div id="app">
+      <a @click.prevent="fn" href="http://www.baidu.com">百度吧</a>
+      <a @click="fn($event,'ggggg')" href="http://www.taobao.com">淘宝吧</a>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello Vue",
+        },
+        methods: {
+          fn(e, str) {
+            // alert("我不想");
+            e.preventDefault();
+            console.log(str);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

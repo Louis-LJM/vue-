@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .red {
+            color: red;
+        }
+
+        .search {
+            width: 300px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>资产名称</th>
+                        <th>价格</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='(item,index) in list'>
+                        <td>{{index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td :class="{red:item.price >= 100}">{{item.price | money}}</td>
+                        <td><a @click='del(item.id)' href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 添加资产 -->
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input v-model.trim="name" class="form-control" placeholder="资产名称" />
+                    </div>&nbsp;&nbsp;
+                    <div class="input-group">
+                        <input v-model.trim.prevent="price" class="form-control" placeholder="资产价格" />
+                    </div>
+                </div>&nbsp;&nbsp;
+                <button @click.prevent='add' class="btn btn-primary">添加资产</button>
+            </form>
+        </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // 目标：
+        // 1. 把表格数据显示出来
+        // 2. 实现删除功能
+        // 3. 标注：如果价格超过100，标红色显示。
+        // 4. 添加功能
+
+        // list: [
+        //     { id: 1, name: '外套', price: 99 },
+        //     { id: 2, name: '裤子', price: 34 },
+        //     { id: 3, name: '鞋', price: 25.4 },
+        //     { id: 4, name: '头发', price: 199 }
+        // ]
+        Vue.filter('money', function (value) {
+            return '¥' + value.toFixed(2)
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    { id: 1, name: '外套', price: 99 },
+                    { id: 2, name: '裤子', price: 34 },
+                    { id: 3, name: '鞋', price: 25.4 },
+                    { id: 4, name: '头发', price: 199 }
+                ],
+                name: '',
+                price: 0
+            },
+            methods: {
+                del(id) {
+                    this.list = this.list.filter(item => item.id != id)
+                },
+                add() {
+                    if (this.name === '') return
+                    if (this.price === '' || this.price <= 0) return
+                    this.list.push({
+                        id: +new Date(),
+                        name: this.name,
+                        price: this.price
+                    })
+                    this.name = '',
+                        this.price = ''
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

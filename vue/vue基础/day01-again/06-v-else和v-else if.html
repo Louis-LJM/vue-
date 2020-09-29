@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-if="isLogin">尊敬的父亲，欢迎光临</p>
+      <p v-else>你哪位啊！</p>
+
+      <p v-if="age >= 70">80了！我老当益壮</p>
+      <p v-else-if="age >= 50">50了！我还能再战</p>
+      <p v-else-if=" age> 30">30了！我正年轻</p>
+      <p v-else>20！我还是个孩子</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello vue",
+          isLogin: true,
+          age: 22,
+        },
+      });
+    </script>
+  </body>
+</html>

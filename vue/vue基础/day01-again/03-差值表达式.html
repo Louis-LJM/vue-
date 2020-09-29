@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          差值表达式{{}} 小胡子语法
+          作用：使用data数据，渲染视图
+          语法：
+          {{数据}}
+          {{name.toUpperCase()}}
+          支持三元运算符  ？：
+
+          注意：
+          1.不是data中的变量，不要直接使用
+          2.在差值表达式{{}}中，不能使用js语句  比如：if for
+          3.不能在html标签中，使用差值表达式
+       -->
+    <div id="app">
+      <h2>{{msg}}</h2>
+      <h2>{{obj.sex.toUpperCase()}}</h2>
+      <h2>{{house}}</h2>
+      <h2>{{obj.thing}}</h2>
+      <h3>{{obj.age>15?'兄弟张大了':'好好学习吧'}}</h3>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "帅锅",
+          money: 1000,
+          house: "北京四合院",
+          obj: {
+            name: "小南",
+            age: "22",
+            sex: "boy",
+            thing: "吃火锅",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+          v-text：不识别标签  效果和innerText类似   可以用差值表达式替代
+          v-html：可以识别标签  效果和innerHTML类似  需要解析标签时可以使用它
+       -->
+    <div id="app">
+      <h2>内容：{{msg}}</h2>
+      <p v-text="msg"></p>
+      <p v-html="msg"></p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "<strong>我很强壮</strong>",
+        },
+      });
+    </script>
+  </body>
+</html>
