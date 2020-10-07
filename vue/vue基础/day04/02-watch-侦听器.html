@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+        <button @click='fn'>改值</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                str: 'abc',
+                obj: {
+                    name: 'zs',
+                    age: 18
+                }
+            },
+            methods: {
+                fn() {
+                    this.msg = 'zs'
+                }
+            },
+            watch: {
+                // 监视msg 的变化，只要msg变化了，就会执行对应watch中的这个函数
+                msg(newValue) {
+                    console.log('值变化了，变化后:', newValue)
+                },
+                // 监视str 的变化
+                str(newValue, oldValue) {
+                    console.log('变化后:', newValue)
+                },
+                // 监视obj.age的变化
+                'obj.age': function (newValue) {
+                    console.log('变化后:', newValue)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

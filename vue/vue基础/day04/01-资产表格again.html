@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .red {
+            color: red;
+        }
+
+        .search {
+            width: 250px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <!-- 搜索 -->
+            <input v-model.trim='key' type="text" class="form-control search" placeholder="输入关键字进行搜索">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>资产名称</th>
+                        <th>价格</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='(item,index) in list' :key='item.id'>
+                        <td>{{index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td :class='{red:item.price >= 100}'>{{item.price | money}}</td>
+                        <td><a @click='del(item.id)' href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 添加资产 -->
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input v-model.trim='name' type="text" class="form-control" placeholder="资产名称" />
+                    </div>&nbsp;&nbsp;
+                    <div class="input-group">
+                        <input v-model.trim.number='price' type="text" class="form-control" placeholder="资产价格" />
+                    </div>
+                </div>&nbsp;&nbsp;
+                <button @click.prevent='add' class="btn btn-primary">添加资产</button>
+            </form>
+        </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <script>
+        Vue.filter('money', function (value) {
+            return "¥" + value.toFixed(2)
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                name: '',
+                price: '',
+                key: ''
+            },
+            created() {
+                this.getList()
+            },
+            methods: {
+                getList() {
+                    axios.get('http://localhost:3000/list').then(res => {
+                        this.list = res.data
+                    })
+                },
+                del(id) {
+                    axios.delete(`http://localhost:3000/list/${id}`).then(res => {
+                        console.log(res.data)
+                        this.getList()
+                    })
+                },
+                add() {
+                    if (this.name === '') return
+                    if (this.price === '' || this.price <= 0) return
+                    axios.post(`http://localhost:3000/list`, {
+                        name: this.name,
+                        price: this.price
+                    }).then(res => {
+                        this.getList()
+                        this.name = ''
+                        this.price = ''
+                    })
+                },
+            },
+            // computed: {
+            //     showList() {
+            //         // 根据key  过滤出需要展示的内容，条件：item.name 包含 key就要保留
+            //         return this.list.filter(item => item.name.includes(this.key))
+            //     }
+            // },
+            watch: {
+                key(newValue) {
+                    // 基于搜索关键字，发送请求，拿到搜索结果
+                    // 防抖：延时执行，不立即执行，会等一下，如果在等待的时间内再次触发，就重新等待
+                    // 只有等完了,还没有再次触发，就会执行
+                    clearTimeout(this.timeId)
+                    this.timeId = setTimeout(() => {
+                        axios.get('http://localhost:3000/list', {
+                            params: {
+                                name_like: newValue
+                            }
+                        }).then(res => {
+                            console.log('发送请求了', res.data)
+                            this.list = res.data
+                        })
+                    }, 300)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
